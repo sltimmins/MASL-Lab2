@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class ModuleB : UIViewController {
+    
+    @IBOutlet weak var sliderLabel: UILabel!
+    @IBOutlet weak var hertzSlider: UISlider!
+    
     private var timer:Timer = Timer()
     let audio = AudioModel(buffer_size: AUDIO_BUFFER_SIZE)
     lazy var graph:MetalGraph? = {
@@ -19,6 +23,9 @@ class ModuleB : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // FOR SLIDER
+        hertzSlider.minimumValue = 15;
+        hertzSlider.maximumValue = 20000;
         
         // add in graphs for display
         graph?.addGraph(withName: "fft",
@@ -29,7 +36,7 @@ class ModuleB : UIViewController {
             numPointsInGraph: AUDIO_BUFFER_SIZE)
         
         audio.startMicrophoneProcessing(withFps: 10)
-        audio.startProcessingSinewaveForPlayback(withFreq: 630.0)
+        audio.startProcessingSinewaveForPlayback(withFreq: hertzSlider.value)
         audio.play()
         
         // run the loop for updating the graph peridocially
@@ -37,6 +44,15 @@ class ModuleB : UIViewController {
             selector: #selector(self.updateGraph),
             userInfo: nil,
             repeats: true)
+        
+        audio.getGesture(setHertz: hertzSlider.value)
+        
+        
+    }
+    
+
+    @IBAction func SliderAction(_ sender: Any) {
+        sliderLabel.text = String(hertzSlider.value);
     }
     
     @objc

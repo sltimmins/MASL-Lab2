@@ -8,7 +8,6 @@
 
 import Foundation
 import Accelerate
-import Algorithms
 
 class AudioModel {
     
@@ -66,13 +65,24 @@ class AudioModel {
         self.audioManager?.pause()
     }
     
+    //GET BUFFER
+    func getInputBuffer() -> (CircularBuffer){
+        return inputBuffer!
+    }
+    
+    // FOR MODULEB
+    func getGesture(setHertz: Float) -> (){
+        var zoomedBuffer = fftData[...100]
+        print(zoomedBuffer, setHertz)
+    }
+    
     // Here is an example function for getting the maximum frequency
     func getMaxFrequencyMagnitude(toIgnore: Int) -> (Int, Float){
         // this is the slow way of getting the maximum...
         // you might look into the Accelerate framework to make things more efficient
         var max:Float = -1000.0
         var maxi:Int = 0
-        print(toIgnore)
+        //print(toIgnore)
         if inputBuffer != nil {
             for i in 0..<Int(fftData.count){
                 if(i != toIgnore) {
@@ -139,22 +149,13 @@ class AudioModel {
             fftHelper!.performForwardFFT(withData: &timeData,
                                          andCopydBMagnitudeToBuffer: &fftData)
             
-//            maxVals = fftData.max(count: 2, sortedBy: >)
-//            for i in 0..<Int(fftData.count) {
-//                if(fftData[i] == maxVals[0]) {
-//                    maxFreqsi[0] = i
-//                } else if(fftData[i] == maxVals[1]) {
-//                    maxFreqsi[1] = i
-//                }
-//            }
-            
 //            maxFreqs[0] = Float(maxFreqsi[0]) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
 //            maxFreqs[1] = Float(maxFreqsi[1]) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
             let result = getMaxFrequencyMagnitude(toIgnore: -1)
             maxFreqs[0] = result.1 * 2
             let result1 = getMaxFrequencyMagnitude(toIgnore: result.0)
             maxFreqs[1] = result1.1 * 2
-            print(maxFreqs)
+            //print(maxFreqs)
         }
     }
     
