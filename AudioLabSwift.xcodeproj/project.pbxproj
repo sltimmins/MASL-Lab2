@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		017C454A28EE066A005D3962 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 017C454928EE066A005D3962 /* Algorithms */; };
 		01897B8628EE1865009161C0 /* AnalyzerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01897B8528EE1865009161C0 /* AnalyzerModel.swift */; };
+		55D3F3C728EE7888001461AE /* ModuleB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3F3C628EE7888001461AE /* ModuleB.swift */; };
 		B65B5A5A24F4409F00E74E73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B5A5924F4409F00E74E73 /* AppDelegate.swift */; };
 		B65B5A5C24F4409F00E74E73 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B5A5B24F4409F00E74E73 /* SceneDelegate.swift */; };
 		B65B5A5E24F4409F00E74E73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B5A5D24F4409F00E74E73 /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		01897B8528EE1865009161C0 /* AnalyzerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzerModel.swift; sourceTree = "<group>"; };
+		55D3F3C628EE7888001461AE /* ModuleB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleB.swift; sourceTree = "<group>"; };
 		B65B5A5624F4409F00E74E73 /* AudioLabSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioLabSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B65B5A5924F4409F00E74E73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B65B5A5B24F4409F00E74E73 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				B65B5A7124F443A400E74E73 /* AudioFileReader.m */,
 				B65B5A7C24F458D700E74E73 /* FFTHelper.h */,
 				B65B5A7B24F458D700E74E73 /* FFTHelper.m */,
+				55D3F3C628EE7888001461AE /* ModuleB.swift */,
 				B65B5A5924F4409F00E74E73 /* AppDelegate.swift */,
 				B65B5A5B24F4409F00E74E73 /* SceneDelegate.swift */,
 				B65B5A5D24F4409F00E74E73 /* ViewController.swift */,
@@ -189,6 +192,7 @@
 				01897B8628EE1865009161C0 /* AnalyzerModel.swift in Sources */,
 				B65B5A7824F444CE00E74E73 /* CircularBuffer.m in Sources */,
 				B65B5A7324F443A400E74E73 /* AudioFileReader.m in Sources */,
+				55D3F3C728EE7888001461AE /* ModuleB.swift in Sources */,
 				B65B5A7024F440D600E74E73 /* Novocaine.m in Sources */,
 				B65B5A8124F4AAB800E74E73 /* MetalGraph.swift in Sources */,
 				B65B5A5E24F4409F00E74E73 /* ViewController.swift in Sources */,

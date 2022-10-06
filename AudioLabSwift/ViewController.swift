@@ -43,6 +43,11 @@ class ViewController: UIViewController {
        
     }
     
+    override func viewDidDisappear(_ animated: Bool){
+        super.viewDidDisappear(animated)
+        self.analyzer.pause()
+    }
+    
     @objc
     func getMaxes() {
         let maxFreqs = self.analyzer.getMaxes()

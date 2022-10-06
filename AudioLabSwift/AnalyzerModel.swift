@@ -35,14 +35,16 @@ class AnalyzerModel {
     
     func start() {
         audio.startMicrophoneProcessing(withFps: 10)
-        //audio.startProcesingAudioFileForPlayback()
-        audio.startProcessingSinewaveForPlayback(withFreq: 630.0)
         audio.play()
         
         Timer.scheduledTimer(timeInterval: 0.05, target: self,
             selector: #selector(self.updateGraph),
             userInfo: nil,
             repeats: true)
+    }
+    
+    func pause() {
+        self.audio.pause()
     }
     
     @objc
