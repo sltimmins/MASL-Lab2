@@ -25,7 +25,7 @@ class ModuleB : UIViewController {
         
         // FOR SLIDER
         hertzSlider.minimumValue = 15;
-        hertzSlider.maximumValue = 20000;
+        hertzSlider.maximumValue = 7000;
         
         // add in graphs for display
         graph?.addGraph(withName: "fft",
@@ -44,10 +44,7 @@ class ModuleB : UIViewController {
             selector: #selector(self.updateGraph),
             userInfo: nil,
             repeats: true)
-        
-        audio.getGesture(setHertz: hertzSlider.value)
-        
-        
+
     }
     
 
@@ -66,6 +63,8 @@ class ModuleB : UIViewController {
             data: self.audio.timeData,
             forKey: "time"
         )
+        
+        audio.getGesture(setHertz: hertzSlider.value)
         
     }
     
