@@ -13,20 +13,24 @@ class ModuleB : UIViewController {
     
     @IBOutlet weak var sliderLabel: UILabel!
     @IBOutlet weak var hertzSlider: UISlider!
+    @IBOutlet weak var movementLabel: UILabel!
     
     private var timer:Timer = Timer()
     let audio = AudioModel(buffer_size: AUDIO_BUFFER_SIZE)
     lazy var graph:MetalGraph? = {
         return MetalGraph(mainView: self.view)
     }()
-    
+    var sum:Float = 0.0
+    var averageCount = 0
+    var targetPeak:Float = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // FOR SLIDER
         hertzSlider.minimumValue = 15;
         hertzSlider.maximumValue = 7000;
-        
+        movementLabel.text = "Please move the slider"
+        hertzSlider.value = 15;
         // add in graphs for display
         graph?.addGraph(withName: "fft",
                         shouldNormalize: true,
@@ -50,6 +54,10 @@ class ModuleB : UIViewController {
 
     @IBAction func SliderAction(_ sender: Any) {
         sliderLabel.text = String(hertzSlider.value);
+//        audio.getSample()
+        sum = 0
+        averageCount = 0
+        movementLabel.text = "Please be still"
     }
     
     @objc
@@ -64,8 +72,34 @@ class ModuleB : UIViewController {
             forKey: "time"
         )
         
-        audio.getGesture(setHertz: hertzSlider.value)
+        if averageCount < 100 {
+            sum += audio.getGesture(setHertz: hertzSlider.value)
+            averageCount += 1
+        }
         
+        else if averageCount == 100 {
+            targetPeak = sum/100
+            averageCount+=1
+        }
+        
+        else {
+            print("current Movement")
+            let currentMovementValue = audio.getGesture(setHertz: hertzSlider.value)
+            print(currentMovementValue)
+            if currentMovementValue > targetPeak + 5 {
+                movementLabel.text = "moving up"
+            }
+            else if currentMovementValue < targetPeak - 5 {
+                movementLabel.text = "moving down"
+            }
+            else{
+                movementLabel.text = "still"
+            }
+        }
+        print("sum")
+        print(sum)
+        print("targetPeak")
+        print(targetPeak)
     }
     
     override func viewDidDisappear(_ animated: Bool){

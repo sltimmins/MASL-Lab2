@@ -71,9 +71,11 @@ class AudioModel {
     }
     
     // FOR MODULEB
-    func getGesture(setHertz: Float) -> (){
-        let min = Int(setHertz) - 10;
-        let max = Int(setHertz) + 10;
+    func getGesture(setHertz: Float) -> (Float){
+        let index = (setHertz/Float(self.audioManager!.samplingRate)) * Float(BUFFER_SIZE)
+        print(index)
+        let min = Int(index) - 5;
+        let max = Int(index) + 5;
         let zoomedBuffer = fftData[min...max];
         
         var sum :Float = 0.0;
@@ -82,8 +84,12 @@ class AudioModel {
         }
         let average = sum/Float(zoomedBuffer.count)
         
-        print(average)
+        return average
     }
+    
+//    func getSample() -> (){
+//
+//    }
     
     // Here is an example function for getting the maximum frequency
     func getMaxFrequencyMagnitude(toIgnore: Int) -> (Int, Float){
