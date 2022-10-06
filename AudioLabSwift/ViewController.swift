@@ -10,8 +10,7 @@ import UIKit
 import Metal
 
 
-let AUDIO_BUFFER_SIZE = 1024*4
-
+let AUDIO_BUFFER_SIZE = 4096*4
 
 class ViewController: UIViewController {
 
@@ -31,7 +30,7 @@ class ViewController: UIViewController {
         // add in graphs for display
         graph?.addGraph(withName: "fft",
                         shouldNormalize: true,
-                        numPointsInGraph: AUDIO_BUFFER_SIZE/2)
+                        numPointsInGraph: AUDIO_BUFFER_SIZE / 2)
 
         graph?.addGraph(withName: "time",
             shouldNormalize: false,

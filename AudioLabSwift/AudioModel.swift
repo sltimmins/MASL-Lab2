@@ -25,7 +25,7 @@ class AudioModel {
         BUFFER_SIZE = buffer_size
         // anything not lazily instatntiated should be allocated here
         timeData = Array.init(repeating: 0.0, count: BUFFER_SIZE)
-        fftData = Array.init(repeating: 0.0, count: BUFFER_SIZE/2)
+        fftData = Array.init(repeating: 0.0, count: BUFFER_SIZE / 2)
         maxVals = Array.init(repeating: 0.0, count: 2)
         maxFreqsi = Array.init(repeating: 0, count: 2)
         maxFreqs = Array.init(repeating: 0.0, count: 2)
@@ -150,9 +150,9 @@ class AudioModel {
             
 //            maxFreqs[0] = Float(maxFreqsi[0]) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
 //            maxFreqs[1] = Float(maxFreqsi[1]) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
-            var result = getMaxFrequencyMagnitude(toIgnore: -1)
+            let result = getMaxFrequencyMagnitude(toIgnore: -1)
             maxFreqs[0] = result.1 * 2
-            var result1 = getMaxFrequencyMagnitude(toIgnore: result.0)
+            let result1 = getMaxFrequencyMagnitude(toIgnore: result.0)
             maxFreqs[1] = result1.1 * 2
             print(maxFreqs)
         }
