@@ -28,7 +28,7 @@ class AnalyzerModel {
     private var graph:MetalGraph?
     
     init(viewGraph: MetalGraph?) {
-        AUDIO_BUFFER_SIZE = 4096 * 4
+        AUDIO_BUFFER_SIZE = 1024 * 4
         audio = AudioModel(buffer_size: AUDIO_BUFFER_SIZE)
         graph = viewGraph
     }
@@ -44,6 +44,10 @@ class AnalyzerModel {
                 userInfo: nil,
                 repeats: true)
         }
+    }
+    
+    func pause() {
+        self.audio.pause()
     }
 //
     @objc
