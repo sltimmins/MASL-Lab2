@@ -51,6 +51,7 @@ class AudioModel {
         self.fileReader?.play()
     }
     
+    // Function for playing the sine wave with specific 
     func startProcessingSinewaveForPlayback(withFreq:Float=330.0){
         sineFrequency = withFreq
         // Two examples are given that use either objective c or that use swift
@@ -69,34 +70,40 @@ class AudioModel {
         self.audioManager?.pause()
     }
     
-    //GET BUFFER
+    //GETTER FOR BUFFER
     func getInputBuffer() -> (CircularBuffer){
         return inputBuffer!
     }
     
-    // FOR MODULEB
+    // FOR MODULE B
+    // This function gets the averages for the left and right of a specific index via an input of a Hz value
     func getGesture(setHertz: Float) -> (Float, Float){
-        let index = (setHertz/Float(self.audioManager!.samplingRate)) * Float(BUFFER_SIZE)
-        let range = 10
+        let index = (setHertz/Float(self.audioManager!.samplingRate)) * Float(BUFFER_SIZE) //Get the index of the FFT from the Hz
+        
+        let range = 10 // Determines the range of values to determine the baseline averages
+        
+        // Min and Max are the lowerst and largest values we compare in this range
         let min = Int(index) - range < 0 ? 0 : Int(index) - range
         let max = Int(index) + range >= BUFFER_SIZE ? BUFFER_SIZE-1 : Int(index) + range
+        
+        // Store the new values in this new "buffer"
         let zoomedBuffer = fftData[min...max]
         
-        //let zoomBufferIndex = Int(index) - range < 0 ? Int(index) : 10
-        
+        // Creates a sum for the left hand side of the specific Hz
         var leftAvg:Float = 0.0
         for val in min..<Int(index){
             leftAvg += zoomedBuffer[val]
         }
         
+        // Creates a sum for the right hand side of the specific Hz
         var rightAvg:Float = 0.0
         for val in Int(index)+1..<max{
             rightAvg += zoomedBuffer[val]
         }
         
+        // Create the averages for the left and right side and returns those values
         leftAvg = leftAvg/Float(range-min)
         rightAvg = rightAvg/(Float(zoomedBuffer.count-range-min))
-        
         return (leftAvg, rightAvg)
     }
     
