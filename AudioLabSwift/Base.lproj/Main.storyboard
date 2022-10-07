@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bEm-fi-kP0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -77,26 +78,28 @@
             <objects>
                 <viewController id="Cwx-AQ-Rmd" customClass="ModuleB" customModule="AudioLabSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jxT-ab-Fqr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMQ-Ja-3ov">
-                                <rect key="frame" x="147" y="143" width="121" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Hz" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMQ-Ja-3ov">
+                                <rect key="frame" x="147" y="348" width="121" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="09d-py-UmL">
-                                <rect key="frame" x="91" y="172" width="232" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="09d-py-UmL">
+                                <rect key="frame" x="91" y="377" width="232" height="31"/>
                                 <connections>
                                     <action selector="SliderAction:" destination="Cwx-AQ-Rmd" eventType="valueChanged" id="2qM-oN-b4h"/>
                                 </connections>
                             </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lb7-10-b5E">
-                                <rect key="frame" x="186" y="46" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lb7-10-b5E">
+                                <rect key="frame" x="20" y="102" width="374" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="374" id="2Hg-96-rtp"/>
+                                    <constraint firstAttribute="height" constant="47" id="gMv-y1-K4T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -104,7 +107,19 @@
                         <viewLayoutGuide key="safeArea" id="xuT-ep-8sq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Lb7-10-b5E" firstAttribute="top" secondItem="xuT-ep-8sq" secondAttribute="top" constant="46" id="dTC-dt-aDF"/>
+                            <constraint firstItem="nMQ-Ja-3ov" firstAttribute="top" secondItem="xuT-ep-8sq" secondAttribute="top" constant="300" id="86R-9V-6v9"/>
+                            <constraint firstItem="Lb7-10-b5E" firstAttribute="leading" secondItem="xuT-ep-8sq" secondAttribute="leading" constant="20" id="8wp-2o-ori"/>
+                            <constraint firstItem="Lb7-10-b5E" firstAttribute="top" secondItem="xuT-ep-8sq" secondAttribute="top" constant="54" id="AP3-Nc-Oh7"/>
+                            <constraint firstItem="09d-py-UmL" firstAttribute="top" secondItem="xuT-ep-8sq" secondAttribute="top" constant="329" id="EhP-mm-Lap"/>
+                            <constraint firstItem="nMQ-Ja-3ov" firstAttribute="leading" secondItem="xuT-ep-8sq" secondAttribute="leading" constant="147" id="FiY-yz-dj1"/>
+                            <constraint firstItem="xuT-ep-8sq" firstAttribute="bottom" secondItem="Lb7-10-b5E" secondAttribute="bottom" constant="689" id="H7w-5H-FNW"/>
+                            <constraint firstItem="xuT-ep-8sq" firstAttribute="trailing" secondItem="Lb7-10-b5E" secondAttribute="trailing" constant="20" id="M4b-ML-jkZ"/>
+                            <constraint firstItem="09d-py-UmL" firstAttribute="centerX" secondItem="xuT-ep-8sq" secondAttribute="centerX" id="dNS-z7-sXy"/>
+                            <constraint firstItem="xuT-ep-8sq" firstAttribute="trailing" secondItem="nMQ-Ja-3ov" secondAttribute="trailing" constant="146" id="fAm-j0-KT6"/>
+                            <constraint firstItem="xuT-ep-8sq" firstAttribute="trailing" secondItem="09d-py-UmL" secondAttribute="trailing" constant="93" id="gyN-JU-uqu"/>
+                            <constraint firstItem="09d-py-UmL" firstAttribute="leading" secondItem="xuT-ep-8sq" secondAttribute="leading" constant="93" id="hdV-CZ-PAz"/>
+                            <constraint firstItem="xuT-ep-8sq" firstAttribute="bottom" secondItem="nMQ-Ja-3ov" secondAttribute="bottom" constant="469" id="neF-CG-RJV"/>
+                            <constraint firstItem="xuT-ep-8sq" firstAttribute="bottom" secondItem="09d-py-UmL" secondAttribute="bottom" constant="431" id="qpj-1l-QDw"/>
                         </constraints>
                     </view>
                     <connections>
