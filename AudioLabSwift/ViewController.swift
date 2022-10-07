@@ -10,7 +10,7 @@ import UIKit
 import Metal
 
 
-let AUDIO_BUFFER_SIZE = 1024*4
+let AUDIO_BUFFER_SIZE = 1024*16
 
 class ViewController: UIViewController {
 
@@ -53,8 +53,8 @@ class ViewController: UIViewController {
     @objc
     func getMaxes() {
         let maxFreqs = self.analyzer.getMaxes()
-        max1.text = String(maxFreqs[0]) + " Hz"
-        max2.text = String(maxFreqs[1]) + " Hz"
+        max1.text = String(maxFreqs[0] + 25) + " Hz"
+        max2.text = String(maxFreqs[1] + 25) + " Hz"
     }
     
     @IBOutlet weak var max1: UILabel!
