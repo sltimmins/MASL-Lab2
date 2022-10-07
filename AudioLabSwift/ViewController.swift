@@ -11,6 +11,7 @@ import Metal
 
 
 let AUDIO_BUFFER_SIZE = 1024*16
+let AUDIO_BUFFER_SIZE_B = 1024 * 4;
 
 class ViewController: UIViewController {
 

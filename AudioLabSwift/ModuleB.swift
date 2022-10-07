@@ -18,7 +18,7 @@ class ModuleB : UIViewController {
     
     // Timer in order to constantly update graphs
     private var timer:Timer = Timer()
-    let audio = AudioModel(buffer_size: AUDIO_BUFFER_SIZE)
+    let audio = AudioModel(buffer_size: AUDIO_BUFFER_SIZE_B)
     
     // Lazy instantiation of grpah
     lazy var graph:MetalGraph? = {
@@ -43,10 +43,10 @@ class ModuleB : UIViewController {
         // add in graphs for display
         graph?.addGraph(withName: "fft",
                         shouldNormalize: true,
-                        numPointsInGraph: AUDIO_BUFFER_SIZE/2)
+                        numPointsInGraph: AUDIO_BUFFER_SIZE_B/2)
         graph?.addGraph(withName: "time",
             shouldNormalize: false,
-            numPointsInGraph: AUDIO_BUFFER_SIZE)
+            numPointsInGraph: AUDIO_BUFFER_SIZE_B)
         
         // Start processing and playing the specific value (from slider)
         audio.startMicrophoneProcessing(withFps: 10)
