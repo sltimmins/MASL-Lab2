@@ -28,7 +28,7 @@ class AnalyzerModel {
     private var graph:MetalGraph?
     
     init(viewGraph: MetalGraph?) {
-        AUDIO_BUFFER_SIZE = 1024 * 4
+        AUDIO_BUFFER_SIZE = 1024 * 16
         audio = AudioModel(buffer_size: AUDIO_BUFFER_SIZE)
         graph = viewGraph
     }

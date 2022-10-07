@@ -30,6 +30,7 @@ class AudioModel {
         maxFreqsi = Array.init(repeating: 0, count: 2)
         maxFreqs = Array.init(repeating: 0.0, count: 2)
         maxes = Array.init(repeating: (0.0, 0), count: 2)
+        print(self.audioManager!.samplingRate)
     }
     
     // public function for starting processing of microphone data
@@ -122,7 +123,7 @@ class AudioModel {
         
 //        let size = fftData.count - 50 + 1
         var output = [Float](repeating: 0.0, count: fftData.count)
-        let windowLength = vDSP_Length(50)
+        let windowLength = vDSP_Length(16)
         let outputCount = vDSP_Length(fftData.count) - windowLength + 1
         let stride = vDSP_Stride(1)
         vDSP_vswmax(fftData, stride,
@@ -131,11 +132,11 @@ class AudioModel {
                     windowLength)
         
         var localMaxs:[(max: Float, index: Int)] = []
-        var i = 0, j = 49
+        var i = 0, j = 15
         while(j < outputCount) {
             if(output[i] == output[j]) {
-                if(output[i] == output[i + 24]) {
-                    localMaxs.append((max: output[i + 24], index: i + 24))
+                if(output[i] == output[i + 7]) {
+                    localMaxs.append((max: output[i + 7], index: i + 7))
                 }
             }
             i += 1
