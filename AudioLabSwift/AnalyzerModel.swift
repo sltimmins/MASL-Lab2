@@ -34,19 +34,18 @@ class AnalyzerModel {
     }
     
     func start() {
-        audio.startMicrophoneProcessing(withFps: 10)
-        audio.play()
-        
-        Timer.scheduledTimer(timeInterval: 0.05, target: self,
-            selector: #selector(self.updateGraph),
-            userInfo: nil,
-            repeats: true)
+        let serialQueue = DispatchQueue(label: "serial")
+        serialQueue.sync {
+            audio.startMicrophoneProcessing(withFps: 10)
+            audio.play()
+            
+            Timer.scheduledTimer(timeInterval: 0.05, target: self,
+                selector: #selector(self.updateGraph),
+                userInfo: nil,
+                repeats: true)
+        }
     }
-    
-    func pause() {
-        self.audio.pause()
-    }
-    
+//
     @objc
     func getMaxes() -> ([Float]) {
         return self.audio.maxFreqs
@@ -58,7 +57,7 @@ class AnalyzerModel {
             data: self.audio.fftData,
             forKey: "fft"
         )
-        
+
         self.graph?.updateGraph(
             data: self.audio.timeData,
             forKey: "time"
