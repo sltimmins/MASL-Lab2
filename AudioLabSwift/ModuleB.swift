@@ -30,10 +30,10 @@ class ModuleB : UIViewController {
         super.viewDidLoad()
         
         // FOR SLIDER
-        hertzSlider.minimumValue = 15;
-        hertzSlider.maximumValue = 7000;
+        hertzSlider.minimumValue = 15000;
+        hertzSlider.maximumValue = 20000;
         movementLabel.text = "Please move the slider"
-        hertzSlider.value = 15;
+        hertzSlider.value = 15000;
         // add in graphs for display
         graph?.addGraph(withName: "fft",
                         shouldNormalize: true,
@@ -56,12 +56,13 @@ class ModuleB : UIViewController {
     
 
     @IBAction func SliderAction(_ sender: Any) {
-        sliderLabel.text = String(hertzSlider.value);
-//        audio.getSample()
+        sliderLabel.text = String(hertzSlider.value) + " Hz";
         sumLeft = 0
         sumRight = 0
         averageCount = 0
         movementLabel.text = "Please be still"
+        audio.startProcessingSinewaveForPlayback(withFreq: hertzSlider.value)
+        audio.play()
     }
     
     @objc
@@ -96,53 +97,29 @@ class ModuleB : UIViewController {
             let changePeak = abs(changeLeftPeak - changeRightPeak)
             print("Change Left, Change Right")
             print(changeLeftPeak, changeRightPeak)
-            
-            if changeLeftPeak > 0.01{
-                movementLabel.text = "LEFT LARGER"
-            } else if changeRightPeak > 5{
-                movementLabel.text = "RIGHT LARGER"
+
+           // FOR STILLNESS
+            if changeLeftPeak == changeRightPeak || changePeak <= 0.07 {
+                movementLabel.text = "Still"
+
+            // MOVING AWAY
+            } else if changeLeftPeak > changeRightPeak{
+                movementLabel.text = "Moving out"
+
+            // MOVING CLOSER
+            } else if changeRightPeak > changeLeftPeak{
+                movementLabel.text = "Moving in"
             } else {
-                movementLabel.text = "STILL"
+                movementLabel.text = "WTF"
             }
             
-//            // FOR STILLNESS
-//            if changeLeftPeak == changeRightPeak || changePeak <= 6 {
-//                movementLabel.text = "Still"
-//
-//            // MOVING AWAY
-//            } else if changeLeftPeak > changeRightPeak{
-//                movementLabel.text = "LEFT LARGER"
-//
-//            // MOVING CLOSER
-//            } else if changeRightPeak > changeLeftPeak{
-//                movementLabel.text = "RIGHT LARGER"
-//            } else {
-//                movementLabel.text = "WTF"
-//            }
-            
-           
-
-            
-//            print("current Movement")
-//            let currentMovementValue = audio.getGesture(setHertz: hertzSlider.value)
-//            print(currentMovementValue)
-//            if currentMovementValue.1 > currentMovementValue.0 {
-//                movementLabel.text = "ONE BIGGER"
-//            }
-//            else if currentMovementValue.1 < currentMovementValue.0 {
-//                movementLabel.text = "one smaller"
-//            }
-//            else{
-//                movementLabel.text = "still"
-//            }
         }
-        
-//        print("targetPeaks")
-//        print(targetPeakLeft, targetPeakRight)
+
     }
     
     override func viewDidDisappear(_ animated: Bool){
         super.viewDidDisappear(animated)
+        audio.startProcessingSinewaveForPlayback(withFreq: 0)
         audio.pause()
         timer.invalidate()
     }
