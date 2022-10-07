@@ -15,10 +15,10 @@ class AudioModel {
     private var BUFFER_SIZE:Int
     var timeData:[Float]
     var fftData:[Float]
-    private var maxVals:[Float]
-    private var maxFreqsi:[Int]
-    var maxFreqs:[Float]
-    var maxes:[(max: Float, index: Int)]
+    private var maxVals:[Float] // max fft values
+    private var maxFreqsi:[Int] // indexes of the max fft values
+    var maxFreqs:[Float] // the calculated max frequencies
+    var maxes:[(max: Float, index: Int)] // the max value and index
     
     // MARK: Public Methods
     init(buffer_size:Int) {
@@ -30,7 +30,6 @@ class AudioModel {
         maxFreqsi = Array.init(repeating: 0, count: 2)
         maxFreqs = Array.init(repeating: 0.0, count: 2)
         maxes = Array.init(repeating: (0.0, 0), count: 2)
-        print(self.audioManager!.samplingRate)
     }
     
     // public function for starting processing of microphone data
@@ -65,6 +64,7 @@ class AudioModel {
         self.audioManager?.play()
     }
     
+    // pause the audio so it stops functioning when module is closed
     func pause(){
         self.audioManager?.pause()
     }
@@ -119,6 +119,8 @@ class AudioModel {
         let frequency = Float(maxi) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
         return (maxi, frequency)
     }
+    
+    // find the max values in a 50 hz window
     func getMaxInWindow(){
         
 //        let size = fftData.count - 50 + 1
@@ -126,14 +128,14 @@ class AudioModel {
         let windowLength = vDSP_Length(16)
         let outputCount = vDSP_Length(fftData.count) - windowLength + 1
         let stride = vDSP_Stride(1)
-        vDSP_vswmax(fftData, stride,
+        vDSP_vswmax(fftData, stride, // find the max values in window and add to new array
                     &output, stride,
                     outputCount,
                     windowLength)
         
         var localMaxs:[(max: Float, index: Int)] = []
         var i = 0, j = 15
-        while(j < outputCount) {
+        while(j < outputCount) { // iterate through the new array and find all the local maxs and their index
             if(output[i] == output[j]) {
                 if(output[i] == output[i + 7]) {
                     localMaxs.append((max: output[i + 7], index: i + 7))
@@ -143,9 +145,9 @@ class AudioModel {
             j += 1
         }
         
-        localMaxs.sort(by: {$0.max > $1.max})
+        localMaxs.sort(by: {$0.max > $1.max}) // sort the local maxs by their max value
         if localMaxs.count > 0 {
-            maxes[0] = localMaxs[0]
+            maxes[0] = localMaxs[0] // get the first two local maxs because they are the two loudest sounds
             for i in 1..<Int(localMaxs.count) {
                 if(localMaxs[i].max != maxes[0].max) {
                     maxes[1] = localMaxs[i]
@@ -153,35 +155,6 @@ class AudioModel {
                 }
             }
         }
-        
-//        let x = output[0 ..< Int(outputCount)]
-//        print(output)
-//        print(x.max(count: 2))
-//        var i = 0
-//        var j = 49
-//        for _ in 1 ... size{
-//            let arr = fftData[i...j]
-//            var max = vDSP.indexOfMaximum(arr)
-//            if max.0 == 24{
-//                max.0 += UInt(i)
-//                for i in maxes.indices{
-//                        if max.1 > maxes[i].1{
-//                            maxes[i] = max
-//                        }
-//
-//                    print(max)
-//                }
-//            }
-//            i += 1
-//            j += 1
-        
-        
-            
-            
-//        }
-//        print(maxes)
-//        print("----------------------")
-        
     }
     // for sliding max windows, you might be interested in the following: vDSP_vswmax
     
@@ -236,16 +209,11 @@ class AudioModel {
             fftHelper!.performForwardFFT(withData: &timeData,
                                          andCopydBMagnitudeToBuffer: &fftData)
             getMaxInWindow()
-//            print(maxes)
-            
-//            maxFreqs[0] = Float(maxFreqsi[0]) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
-//            maxFreqs[1] = Float(maxFreqsi[1]) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
-//            var result = getMaxFrequencyMagnitude(toIgnore: -1)
+
+            // calculate the frequencies for the loudest sounds
             maxFreqs[0] = Float(maxes[0].index) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
             maxFreqs[1] = Float(maxes[1].index) / Float(BUFFER_SIZE) * Float(self.audioManager!.samplingRate)
-//            var result1 = getMaxFrequencyMagnitude(toIgnore: result.0)
-//            maxFreqs[1] = result1.1 * 2
-            //print(maxFreqs)
+
         }
     }
     

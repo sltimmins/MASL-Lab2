@@ -27,15 +27,17 @@ class AnalyzerModel {
     private var audio:AudioModel
     private var graph:MetalGraph?
     
+    // initialize the variables
     init(viewGraph: MetalGraph?) {
-        AUDIO_BUFFER_SIZE = 1024 * 16
-        audio = AudioModel(buffer_size: AUDIO_BUFFER_SIZE)
-        graph = viewGraph
+        AUDIO_BUFFER_SIZE = 1024 * 16 // size of input buffer
+        audio = AudioModel(buffer_size: AUDIO_BUFFER_SIZE) // create audio model
+        graph = viewGraph // set graph to graph from view controller for update
     }
     
+    // start the audio processing
     func start() {
         let serialQueue = DispatchQueue(label: "serial")
-        serialQueue.sync {
+        serialQueue.sync { // put processing on serial queue
             audio.startMicrophoneProcessing(withFps: 10)
             audio.play()
             
@@ -46,17 +48,18 @@ class AnalyzerModel {
         }
     }
     
+    // pause audio processing
     func pause() {
         self.audio.pause()
     }
 //
     @objc
-    func getMaxes() -> ([Float]) {
+    func getMaxes() -> ([Float]) { // return the calculated frequencies for the loundest sounds
         return self.audio.maxFreqs
     }
     
     @objc
-    func updateGraph(){
+    func updateGraph(){ // update the graphs to display the latest data
         self.graph?.updateGraph(
             data: self.audio.fftData,
             forKey: "fft"

@@ -37,10 +37,10 @@ class ViewController: UIViewController {
             shouldNormalize: false,
             numPointsInGraph: AUDIO_BUFFER_SIZE)
         
+        // start the analyzer model
         analyzer.start()
-        let arr2 = arr[0...49]
-        print(arr2)
         
+        // update the view every half second
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.getMaxes), userInfo: nil, repeats: true)
        
     }
@@ -52,6 +52,7 @@ class ViewController: UIViewController {
     
     @objc
     func getMaxes() {
+        // output the frequencies to the view
         let maxFreqs = self.analyzer.getMaxes()
         max1.text = String(maxFreqs[0] + 25) + " Hz"
         max2.text = String(maxFreqs[1] + 25) + " Hz"
