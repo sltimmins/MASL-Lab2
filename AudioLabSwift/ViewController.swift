@@ -5,6 +5,7 @@
 //  Created by Eric Larson 
 //  Copyright © 2020 Eric Larson. All rights reserved.
 //
+// Sam Timmins, Wyatt Saltzman, Kevin Leong, Caleb Moore
 
 import UIKit
 import Metal
