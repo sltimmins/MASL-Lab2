@@ -90,23 +90,55 @@ class ModuleB : UIViewController {
         }
         
         else {
-            print("current Movement")
             let currentMovementValue = audio.getGesture(setHertz: hertzSlider.value)
-            print(currentMovementValue)
-            if currentMovementValue.1 > currentMovementValue.0 {
-                movementLabel.text = "ONE BIGGER"
+            let changeLeftPeak = abs(currentMovementValue.0 - targetPeakLeft)
+            let changeRightPeak = abs(currentMovementValue.1 - targetPeakRight)
+            let changePeak = abs(changeLeftPeak - changeRightPeak)
+            print("Change Left, Change Right")
+            print(changeLeftPeak, changeRightPeak)
+            
+            if changeLeftPeak > 0.01{
+                movementLabel.text = "LEFT LARGER"
+            } else if changeRightPeak > 5{
+                movementLabel.text = "RIGHT LARGER"
+            } else {
+                movementLabel.text = "STILL"
             }
-            else if currentMovementValue.1 < currentMovementValue.0 {
-                movementLabel.text = "one smaller"
-            }
-            else{
-                movementLabel.text = "still"
-            }
+            
+//            // FOR STILLNESS
+//            if changeLeftPeak == changeRightPeak || changePeak <= 6 {
+//                movementLabel.text = "Still"
+//
+//            // MOVING AWAY
+//            } else if changeLeftPeak > changeRightPeak{
+//                movementLabel.text = "LEFT LARGER"
+//
+//            // MOVING CLOSER
+//            } else if changeRightPeak > changeLeftPeak{
+//                movementLabel.text = "RIGHT LARGER"
+//            } else {
+//                movementLabel.text = "WTF"
+//            }
+            
+           
+
+            
+//            print("current Movement")
+//            let currentMovementValue = audio.getGesture(setHertz: hertzSlider.value)
+//            print(currentMovementValue)
+//            if currentMovementValue.1 > currentMovementValue.0 {
+//                movementLabel.text = "ONE BIGGER"
+//            }
+//            else if currentMovementValue.1 < currentMovementValue.0 {
+//                movementLabel.text = "one smaller"
+//            }
+//            else{
+//                movementLabel.text = "still"
+//            }
         }
-        print("sums")
-        print(sumLeft, sumRight)
-        print("targetPeaks")
-        print(targetPeakLeft, targetPeakRight)
+        
+//        print("targetPeaks")
+//        print(targetPeakLeft, targetPeakRight)
     }
     
     override func viewDidDisappear(_ animated: Bool){

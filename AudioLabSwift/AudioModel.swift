@@ -73,13 +73,12 @@ class AudioModel {
     // FOR MODULEB
     func getGesture(setHertz: Float) -> (Float, Float){
         let index = (setHertz/Float(self.audioManager!.samplingRate)) * Float(BUFFER_SIZE)
-        print(index)
         let range = 10
         let min = Int(index) - range < 0 ? 0 : Int(index) - range
         let max = Int(index) + range >= BUFFER_SIZE ? BUFFER_SIZE-1 : Int(index) + range
         let zoomedBuffer = fftData[min...max]
         
-        let zoomBufferIndex = Int(index) - range < 0 ? Int(index) : 10
+        //let zoomBufferIndex = Int(index) - range < 0 ? Int(index) : 10
         
         var leftAvg:Float = 0.0
         for val in min..<Int(index){
